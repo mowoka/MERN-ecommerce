@@ -11,6 +11,7 @@ exports.signup = (req, res) => {
       });
 
     const { firstName, lastName, email, password } = req.body;
+
     const _user = new User({
       firstName,
       lastName,
@@ -63,12 +64,4 @@ exports.signin = (req, res) => {
       res.status(400).json({ message: 'Something went wrong' });
     }
   });
-};
-
-exports.requireSignin = (req, res, next) => {
-  const token = req.headers.authorization.split(' ')[1];
-  const user = jwt.verify(token, process.env.JWT_SECRET_KEY);
-
-  req.user = user;
-  next();
 };
